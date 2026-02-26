@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: t01
+  namespace: eir17846
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io/background
+    - resources-finalizer.argocd.argoproj.io/foreground
+spec:
+  project: eir17846
+  destination:
+    name: argus
+    namespace: eir17846
+  source:
+    path: apps
+    repoURL: https://github.com/Villtord/t01-deployment
+    targetRevision: main
+    helm:
+      version: v3
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
